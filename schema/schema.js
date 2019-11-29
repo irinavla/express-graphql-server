@@ -25,7 +25,6 @@ const UserType = new GraphQLObjectType({
             type: new GraphQLList(ReportType),
             resolve(parent, args) {
                 return Report.find({userId: parent.id});
-                // return _.filter(reports, {userId: parent.id});
             }
         }
     })
@@ -41,8 +40,6 @@ const ReportType = new GraphQLObjectType({
         userId: {
             type: UserType,
             resolve(parent, args) {
-                // console.log(parent);
-                // return _.find(users, { id: parent.userId });
                 return User.findById(parent.userId);
             }
         }
@@ -71,6 +68,7 @@ const RootQuery = new GraphQLObjectType({
                return Report.findById(args.id);
             }
         },
+
         reports: {
             type: new GraphQLList(ReportType),
             resolve(parent, args) {
@@ -84,7 +82,6 @@ const RootQuery = new GraphQLObjectType({
                 id: { type: GraphQLID }
             },
             resolve(parent, args) {
-               // return _.find(users, { id: args.id });
                return User.findById(args.id);
             }
         },
@@ -92,8 +89,24 @@ const RootQuery = new GraphQLObjectType({
         users: {
             type: new GraphQLList(UserType),
             resolve(parent, args) {
-                // return users;
                 return User.find({});
+            }
+        },
+
+        notification: {
+            type: NotificationType,
+            args: {
+                id: { type: GraphQLID }
+            },
+            resolve(parent, args) {
+                return Notification.findById(args.id);
+             }
+        },
+
+        notifications: {
+            type: new GraphQLList(NotificationType),
+            resolve(parent, args) {
+                return Notification.find({});
             }
         }
     })
