@@ -1,4 +1,4 @@
-# Project Title
+# Express GraphQL server
 
 Mock server for GZ console proof of concept
 
