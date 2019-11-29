@@ -148,6 +148,21 @@ const Mutation = new GraphQLObjectType({
       
               return report.save();
             }
+        },
+        addNotification: {
+            type: NotificationType,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                content: { type: new GraphQLNonNull(GraphQLString) },
+            },
+            resolve( parent, args ) {
+                let notification = new Notification({
+                  name: args.name,
+                  content: args.content,
+                });
+        
+                return notification.save();
+              }
         }
     }
 })
