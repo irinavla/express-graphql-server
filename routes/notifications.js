@@ -1,7 +1,6 @@
 const express = require('express');
 const notificationRouter = express.Router();
 
-
 const Notification = require('../models/notification.model');
 
 notificationRouter.route('/').get((req, res) => {
@@ -13,7 +12,10 @@ notificationRouter.route('/').get((req, res) => {
 notificationRouter.route('/add').post(function (req, res, next) {
     const notification = new Notification(req.body);
     notification.save()
-      .then(() => res.json('Notification added successfully'))
+      .then(() => {
+        res.json('Notification added successfully');
+        console.log('notification added');
+      })
       .catch(err => res.status(400).send("unable to save to database"));
   });
 
